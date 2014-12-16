@@ -106,7 +106,7 @@
           custom_fields: this.serializeCustomFields(),
           submitter_id: this.currentUser().id()
         };
-      } else { // if the location is not new don't set description or submitter
+      } else { // if the location is NOT new only set recipient
         var recipient = this.brandEmail();
         if(recipient) {
           attributes.recipient = recipient;
@@ -187,13 +187,16 @@
     },
     brandEmail: function(){
       var group = this.ticket().assignee().group(),
+      groupName = group.name(),
       brand = this._mapping()[this._brand()],
       email,
       name;
       if (!brand) {
         console.log("No brand selected/detected.");
-      } else if(!group || !_.contains(brand, group)) {
+      } else if(!group || !brand[groupName]) {
         console.log("No group selected & matched.");
+        console.log(brand);
+        console.log(groupName);
         name = "Default";
         email = brand[name];
         return email;
