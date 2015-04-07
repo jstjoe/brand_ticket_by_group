@@ -4,11 +4,13 @@
     "name": "Zendesk Services",
     "email": "services@zendesk.com"
   },
-
   "defaultLocale": "en",
   "private": true,
-  "location": ["new_ticket_sidebar", "ticket_sidebar"],
-  "version": "0.1.3",
+  "location": [
+    "new_ticket_sidebar",
+    "ticket_sidebar"
+  ],
+  "version": "0.2.0",
   "frameworkVersion": "1.0",
   "noTemplate": true,
   "parameters": [
@@ -21,7 +23,8 @@
     {
       "name": "mapping",
       "type": "text",
-      "required": true
+      "required": true,
+      "default": "{ \"hostway_us\": { \"Default\":\"enterprisesupport@hostway.com\", \"Customer Service\":\"enterprise-billing@hostway.com\", \"Enterprise Support\":\"enterprise-support@hostway.com\", \"Technical Support\":\"enterprisesupport@hostway.com\"},  \"hostway_enterprise\": { \"Default\":\"enterprise-support@hostway.com\", \"Customer Service\":\"enterprise-billing@hostway.com\", \"Enterprise Support\":\"enterprise-support@hostway.com\"},  \"cloud_connex\":{ \"Default\":\"support@cloud-connex.com\", \"Customer Service\":\"billing@cloud-connex.com\", \"Enterprise Support\":\"support@cloud-connex.com\", \"Technical Support\":\"support@cloud-connex.com\"},  \"oxaas\":{ \"Default\":\"oxaas.support@hostway.com\", \"Customer Service\":\"oxaas.support@hostway.com\", \"Enterprise Support\":\"oxaas.support@hostway.com\", \"Technical Support\":\"oxaas.support@hostway.com\"},  \"hostway_rpd\":{ \"Default\":\"reseller.support@hostway.com\", \"Technical Support\":\"reseller.support@hostway.com\"},  \"emmdeavor\":{ \"Default\":\"emmdeavor.support@hostway.com\", \"Enterprise Support\":\"emmdeavor.support@hostway.com\", \"Technical Support\":\"emmdeavor.support@hostway.com\"} }"
     },
     {
       "name": "force_selection_of_brand",
@@ -33,14 +36,14 @@
       "default": false
     },
     {
-      "name":"new_tickets?",
-      "type":"checkbox",
-      "default":true
+      "name": "new_tickets?",
+      "type": "checkbox",
+      "default": true
     },
     {
-      "name":"existing_tickets?",
-      "type":"checkbox",
-      "default":true
+      "name": "existing_tickets?",
+      "type": "checkbox",
+      "default": true
     }
   ]
 }

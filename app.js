@@ -13,15 +13,6 @@
           data: JSON.stringify(data),
           contentType: 'application/json'
         };
-      },
-      updateTicket: function(data, id) {
-        return {
-          url: helpers.fmt('/api/v2/tickets/%@.json', id),
-          dataType: 'json',
-          type: 'PUT',
-          data: JSON.stringify(data),
-          contentType: 'application/json'
-        };
       }
     },
     onTicketSave: function() {
@@ -35,6 +26,7 @@
         console.log("Existing Tickets? " + existingTickets);
         if (this.shouldCreateTicket(done, fail)){
           // If the location is NEW ticket the app should create a ticket
+          console.log("Should create tickets.");
           if(location == 'new_ticket_sidebar' && newTickets === true) {
             try {
               attributes = this.serializeTicketAttributes(location);
@@ -52,22 +44,9 @@
             }
           } else if(location == 'ticket_sidebar' && existingTickets === true) {
           // if location is not new_ticket_sidebar it should update the existing ticket
-            var id = this.ticket().id();
-            try {
-              attributes = this.serializeTicketAttributes(location);
-              this.ajax('updateTicket', attributes, id)
-                .done(function(data){
-                  services.notify(this.I18n.t('notice.ticket_updated', { id: data.ticket.id, email: data.ticket.recipient }));
-                  done('Used the Brand App to change the email.');
-                  
-                  // this.comment().text('');
-                })
-                .fail(function(data){
-                  fail(data.responseText);
-                });
-            } catch(e) {
-              fail(e.message);
-            }
+            this.ticket().recipient( this.brandEmail() );
+            services.notify(this.I18n.t('notice.ticket_updated', { id: this.ticket().id(), email: this.brandEmail() }));
+            done();
           } else {
             done();
           }
@@ -75,6 +54,7 @@
       });
     },
     shouldCreateTicket: function(done, fail){
+      console.log("Checking if should create ticket.");
       if (_.isEmpty(this.brandEmail())) {
         if (this.setting('force_selection_of_brand')) {
           fail(this.I18n.t('errors.brand'));
@@ -220,6 +200,7 @@
         field === '-';
     },
     _mapping: _.memoize(function(){
+      console.log("Checking mapping.");
       return JSON.parse(this.setting('mapping'));
     })
   };
